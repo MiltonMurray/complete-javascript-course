@@ -1,12 +1,19 @@
 ///////////////////////////////////////
 // Lecture: Hoisting
 
+// calcAge(1993);
 
 
+// function calcAge(year){
+//     console.log(2019 - year);
+//     console.log(this);
+// }
 
 
-
-
+// let retirement = (year) =>{
+//     console.log(65 - (2019 - year));
+// }
+// retirement(1993)
 
 
 
