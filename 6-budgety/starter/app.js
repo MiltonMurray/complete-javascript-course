@@ -113,7 +113,8 @@ let UIController = (()=>{
         budgetLabel: '.budget__value',
         incomeLabel: '.budget__income--value',
         expenseLabel: '.budget__expenses--value',
-        percentageLabel:'.budget__expenses--percentage'
+        percentageLabel:'.budget__expenses--percentage',
+        container: '.container'
     };
     return{
         getInput: function(){
@@ -128,10 +129,10 @@ let UIController = (()=>{
             //create a HTML string with placeholder text
             if(type === 'inc'){
                 element = DOMstrings.incomeContainer;
-                html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }else if(type === 'exp'){
                 element = DOMstrings.expensesContainer;
-                html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
             
             //replace the placeholder text with data
@@ -191,12 +192,12 @@ let appController = ((budgetCtrl, UICtrl)=>{
         DOM = UICtrl.getDOMstrings();
 
         document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-        document.addEventListener('keypress',(event)=>{
-            
+        document.addEventListener('keypress',(event)=>{           
             if(event.keyCode === 13 || event.which === 13){
                 ctrlAddItem();
             }         
         });
+        document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
     };
 
     let updateBudget = function(){
@@ -229,6 +230,16 @@ let appController = ((budgetCtrl, UICtrl)=>{
             // 4 . Calculate and update budget
             updateBudget();
         }        
+    };
+
+    let ctrlDeleteItem = (event)=>{
+        let itemID,splitID;
+        itemID = console.log(event.target.parentNode.parentNode.parentNode.parentNode.id);
+
+        if(itemID){
+            //inc-1
+            splitID = itemID.split('-');
+        }
     };
 
     return {
